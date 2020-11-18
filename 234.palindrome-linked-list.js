@@ -17,26 +17,17 @@
  * @return {boolean}
  */
 var isPalindrome = function (head) {
-  if (!head) { return true };
-  const stack = [];
   let current = head;
+  let reverse = '';
+  let origin = '';
 
   while (current) {
-    stack.unshift(current.val);
+    origin += current.val;
+    reverse = current.val + reverse;
     current = current.next;
   }
 
-  current = head;
-  while (current) {
-    if (stack.shift() !== current.val) {
-      return false;
-    }
-
-    current = current.next;
-  }
-
-  return true;
-
+  return reverse === origin;
 };
 // @lc code=end
 
