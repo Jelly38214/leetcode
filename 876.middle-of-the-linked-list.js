@@ -17,21 +17,13 @@
  * @return {ListNode}
  */
 var middleNode = function (head) {
-  let count = 0;
-  let current = head;
-  while (current) {
-    count++;
-    current = current.next;
+  // Use two pointers: slow, fast, slow move by one, fast move by two
+  let slow = head, fast = head;
+  while (fast && fast.next !== null) { // loop until fast is the last node.
+    slow = slow.next;
+    fast = fast.next.next;
   }
-
-  count = Math.floor(count / 2);
-
-  while (count) {
-    head = head.next;
-    count--;
-  }
-
-  return head;
+  return slow;
 };
 // @lc code=end
 
