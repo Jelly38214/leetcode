@@ -10,18 +10,18 @@
  * @return {number[]}
  */
 var smallerNumbersThanCurrent = function (nums) {
-  const res = [];
-  let count = 0;
+  const temp = new Array(101).fill(0);
 
   for (let i = 0; i < nums.length; i++) {
-    for (let j = 0; j < nums.length; j++) {
-      if (nums[j] < nums[i]) { count++ }
-    }
-    res.push(count);
-    count = 0;
+    temp[nums[i]] += 1;
   }
 
-  return res;
+  for (let i = 1; i <= 100; i++) {
+    temp[i] += temp[i - 1]; // 小于等于i数值的个数
+  }
+
+  return nums.map((item) => item ? temp[item - 1] : 0);
+
 };
 // @lc code=end
 
