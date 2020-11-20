@@ -9,18 +9,20 @@
  * @param {number[]} nums
  * @return {number}
  */
-var numIdenticalPairs = function (nums, r = 0, x = nums[0],) {
-  if (!nums.length) {
-    return r;
+var numIdenticalPairs = function (nums) {
+  /**
+   * 数k出现次数n形成全排列n(n-1), 符合i<j，只有一半n*(n-1)/2
+   */
+  const count = {};
+  for (let i = 0; i < nums.length; i++) {
+    count[nums[i]] = count[nums[i]] ? ++count[nums[i]] : 1;
   }
 
-  for (let i = 1; i < nums.length; i++) {
-    if (nums[i] === x) {
-      r++;
-    }
+  let res = 0;
+  for (let key in count) {
+    res += (count[key] * (count[key] - 1)) / 2
   }
-  nums.shift();
-  return numIdenticalPairs(nums, r)
+  return res;
 };
 // @lc code=end
 
