@@ -9,17 +9,18 @@
  * @param {number[]} nums
  * @return {number}
  */
-var numIdenticalPairs = function (nums) {
-  let count = 0;
-  for (let i = 0; i < nums.length - 1; i++) {
-    for (let j = i + 1; j < nums.length; j++) {
-      if (nums[i] === nums[j]) {
-        count++
-      }
-    }
+var numIdenticalPairs = function (nums, r = 0, x = nums[0],) {
+  if (!nums.length) {
+    return r;
   }
 
-  return count;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] === x) {
+      r++;
+    }
+  }
+  nums.shift();
+  return numIdenticalPairs(nums, r)
 };
 // @lc code=end
 
