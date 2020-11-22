@@ -17,25 +17,19 @@
  * @return {ListNode}
  */
 var reverseList = function (head) {
-  if (!head) {
-    return head;
+  if (!head) return null
+
+  let c = head;
+  let p = n = null
+
+  while (c) {
+    n = c.next;
+    c.next = p;
+    p = c;
+    c = n;
   }
 
-  const stack = [];
-  let current = head;
-  while (current.next !== null) { // Make sure the current is the last one node.
-    stack.push(current);
-    current = current.next;
-  }
-
-  head = current;
-  while (stack.length) {
-    current.next = stack.pop();
-    current = current.next;
-  }
-
-  current.next = null; // Make the last one node's next to be null
-
+  head = p;
   return head;
 };
 // @lc code=end
