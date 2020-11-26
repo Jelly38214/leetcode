@@ -19,22 +19,24 @@
  * @param {number} high
  * @return {number}
  */
-var rangeSumBST = function(root, low, high) {
-  let total = {val: 0};
-  inOrder(root, callback(total, low, high)); 
-  return total.val;
-};
+var rangeSumBST = function (root, low, high) {
+  /**
+   *  深度优先遍历
+   *  当前节点 X < L 时则返回右子树之和
+   *  当前节点 X > R 时则返回左子树之和
+   *  当前节点 X >= L 且 X <= R 时则返回：当前节点值 + 左子树之和 + 右子树之和
+   */
+  if (root === null) { return 0 }
 
-function inOrder(node, callback) {
-   if(node.left) {inOrder(node.left, callback)};
-   callback(node.val);
-   if(node.right) {inOrder(node.right, callback)}
-}
-   
-function callback(total, low, high) {
-  return (val) => {
-    if(val >= low && val <= high) {total.val = total.val + val}; 
+  if (root.val < low) {
+    return rangeSumBST(root.right, low, high);
   }
-}
+
+  if (root.val > high) {
+    return rangeSumBST(root.left, low, high);
+  }
+
+  return root.val + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high);
+};
 // @lc code=end
 
